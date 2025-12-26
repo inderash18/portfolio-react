@@ -11,9 +11,9 @@ function App() {
       <div className="bg-noise-overlay"></div>
 
       {/* Global 3D Background */}
-      <div className="fixed inset-0 z-0">
+      {/* <div className="fixed inset-0 z-0">
         <ThreeBackground />
-      </div>
+      </div> */}
 
       {/* Main Interface */}
       <div className="relative z-10">

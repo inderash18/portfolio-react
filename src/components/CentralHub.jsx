@@ -115,4 +115,42 @@ const CentralHub = ({ onNavigate }) => {
   );
 };
 
+const HubScene = ({ onNavigate }) => {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-black">
+      <div className="text-center">
+        <div className="text-6xl font-bold text-cyan-400 mb-8 glow-cyan">
+          NEURAL INTERFACE
+        </div>
+        <div className="space-y-4">
+          <button
+            onClick={() => onNavigate('home')}
+            className="block w-64 mx-auto px-6 py-3 bg-cyan-400/20 text-cyan-400 border border-cyan-400/50 rounded-lg hover:bg-cyan-400/30 transition-colors"
+          >
+            HOME
+          </button>
+          <button
+            onClick={() => onNavigate('about')}
+            className="block w-64 mx-auto px-6 py-3 bg-purple-400/20 text-purple-400 border border-purple-400/50 rounded-lg hover:bg-purple-400/30 transition-colors"
+          >
+            ABOUT
+          </button>
+          <button
+            onClick={() => onNavigate('projects')}
+            className="block w-64 mx-auto px-6 py-3 bg-green-400/20 text-green-400 border border-green-400/50 rounded-lg hover:bg-green-400/30 transition-colors"
+          >
+            PROJECTS
+          </button>
+          <button
+            onClick={() => onNavigate('contact')}
+            className="block w-64 mx-auto px-6 py-3 bg-pink-400/20 text-pink-400 border border-pink-400/50 rounded-lg hover:bg-pink-400/30 transition-colors"
+          >
+            CONTACT
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default HubScene;
