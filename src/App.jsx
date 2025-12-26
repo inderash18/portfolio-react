@@ -1,36 +1,24 @@
-import React, { Suspense } from 'react';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
+import React from 'react';
+import FuturisticInterface from './components/FuturisticInterface';
 import Cursor from './components/Cursor';
 import ThreeBackground from './components/ThreeBackground';
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
 import './styles/globals.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-black selection:bg-white selection:text-black">
+    <div className="min-h-screen bg-black selection:bg-white selection:text-black overflow-hidden">
       <Cursor />
       <div className="bg-noise-overlay"></div>
 
-      <Suspense fallback={<div className="fixed inset-0 bg-black" />}>
+      {/* Global 3D Background */}
+      <div className="fixed inset-0 z-0">
         <ThreeBackground />
-      </Suspense>
+      </div>
 
-      <Navbar />
-
-      <main className="relative z-10 w-full">
-        <Home />
-        <About />
-        <Projects />
-        <Contact />
-      </main>
-
-      <Footer />
-      <ScrollToTop />
+      {/* Main Interface */}
+      <div className="relative z-10">
+        <FuturisticInterface />
+      </div>
     </div>
   );
 }
