@@ -1,73 +1,83 @@
 import React from 'react';
-import SectionTitle from '../components/SectionTitle';
-import { Code, Database, Wrench, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { bio, lifecycle, skills, hobbies } from '../config/portfolio';
+import { Layers, Activity, Target, Zap } from 'lucide-react';
+
+const RefinedCard = ({ children, className, delay = 0 }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay }}
+        viewport={{ once: true }}
+        className={`glass-card-refined p-10 flex flex-col ${className}`}
+    >
+        {children}
+    </motion.div>
+);
 
 const About = () => {
-    const skills = {
-        frontend: ['React', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'HTML5', 'CSS3', 'Next.js', 'Vue.js'],
-        backend: ['Node.js', 'Express', 'Python', 'Django', 'MongoDB', 'PostgreSQL', 'REST APIs', 'GraphQL'],
-        tools: ['Git', 'Docker', 'AWS', 'Firebase', 'Figma', 'VS Code', 'Postman', 'Linux'],
-    };
-
-    const skillCategories = [
-        { title: 'Frontend', icon: Code, skills: skills.frontend, color: 'text-blue-500' },
-        { title: 'Backend', icon: Database, skills: skills.backend, color: 'text-green-500' },
-        { title: 'Tools & Others', icon: Wrench, skills: skills.tools, color: 'text-purple-500' },
-    ];
-
     return (
-        <section id="about" className="min-h-screen py-20 bg-gray-900/50">
+        <section id="about" className="py-40 px-6">
             <div className="section-container">
-                <SectionTitle
-                    title="About Me"
-                    subtitle="Get to know more about my background and expertise"
-                />
-
-                {/* Bio Section */}
-                <div className="max-w-4xl mx-auto mb-16">
-                    <div className="card">
-                        <div className="flex items-start space-x-4 mb-4">
-                            <Sparkles className="text-primary mt-1" size={24} />
-                            <div>
-                                <h3 className="text-2xl font-bold text-white mb-4">Who I Am</h3>
-                                <p className="text-gray-300 leading-relaxed mb-4">
-                                    I'm a passionate Full Stack Developer with over 5 years of experience building
-                                    web applications that solve real-world problems. I specialize in creating
-                                    scalable, performant, and user-friendly solutions using modern technologies.
-                                </p>
-                                <p className="text-gray-300 leading-relaxed">
-                                    When I'm not coding, you'll find me exploring new technologies, contributing to
-                                    open-source projects, or sharing knowledge with the developer community. I believe
-                                    in continuous learning and staying updated with the latest industry trends.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div className="max-w-3xl mb-32">
+                    <span className="text-[10px] font-black tracking-[1em] text-zinc-500 uppercase mb-6 block">Identity Hub</span>
+                    <h2 className="text-display text-white mb-10">Architecting value through technical precision.</h2>
+                    <p className="text-zinc-500 text-xl leading-relaxed">
+                        {bio.paragraph1}
+                    </p>
                 </div>
 
-                {/* Skills Section */}
-                <div className="grid md:grid-cols-3 gap-8">
-                    {skillCategories.map((category, index) => {
-                        const Icon = category.icon;
-                        return (
-                            <div key={index} className="card">
-                                <div className="flex items-center space-x-3 mb-6">
-                                    <Icon className={category.color} size={28} />
-                                    <h3 className="text-2xl font-bold text-white">{category.title}</h3>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                    {category.skills.map((skill, skillIndex) => (
-                                        <span
-                                            key={skillIndex}
-                                            className="px-3 py-2 bg-gray-800 text-gray-300 text-sm rounded-lg border border-gray-700 hover:border-primary hover:text-primary transition-all duration-300"
-                                        >
-                                            {skill}
-                                        </span>
-                                    ))}
-                                </div>
+                <div className="bento-layout">
+                    {/* Professional DNA Case */}
+                    <RefinedCard className="col-span-12 lg:col-span-7 row-span-2">
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
+                                <Layers size={24} className="text-white" />
                             </div>
-                        );
-                    })}
+                            <span className="text-xs font-bold uppercase tracking-widest text-zinc-400 font-mono">Profile_Analysis</span>
+                        </div>
+                        <p className="text-zinc-400 text-lg leading-relaxed mb-6">
+                            {bio.paragraph2}
+                        </p>
+                        <div className="grid grid-cols-2 gap-6 pt-10 border-t border-white/5">
+                            <div>
+                                <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest mb-2 block">Origin_Base</span>
+                                <span className="text-sm font-bold text-white uppercase">Coimbatore, IN</span>
+                            </div>
+                            <div>
+                                <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest mb-2 block">Language_Stack</span>
+                                <span className="text-sm font-bold text-white uppercase">MERN + AI_DEV</span>
+                            </div>
+                        </div>
+                    </RefinedCard>
+
+                    {/* Performance Rings / Dynamic Data */}
+                    <RefinedCard className="col-span-12 lg:col-span-5 items-center justify-center text-center">
+                        <div className="relative w-40 h-40 mb-8">
+                            <div className="absolute inset-0 rounded-full border-[10px] border-white/5"></div>
+                            <div className="absolute inset-0 rounded-full border-t-[10px] border-accent animate-spin" style={{ animationDuration: '3s' }}></div>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="text-4xl font-black text-white">99%</span>
+                            </div>
+                        </div>
+                        <span className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">Efficiency Protocol Active</span>
+                    </RefinedCard>
+
+                    {/* Timeline Minimal */}
+                    <RefinedCard className="col-span-12 lg:col-span-5">
+                        <h4 className="text-xl font-bold mb-10 flex items-center gap-3">
+                            <Activity size={20} className="text-zinc-700" />
+                            Trajectory Nexus
+                        </h4>
+                        <div className="space-y-8">
+                            {lifecycle.slice(-3).map((item, idx) => (
+                                <div key={idx} className="flex gap-4 group">
+                                    <span className="text-[10px] font-black text-zinc-700 group-hover:text-accent transition-colors pt-1">{item.year}</span>
+                                    <span className="text-sm font-bold text-zinc-400 group-hover:text-white transition-colors uppercase tracking-tight">{item.event}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </RefinedCard>
                 </div>
             </div>
         </section>

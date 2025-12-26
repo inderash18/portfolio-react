@@ -1,44 +1,34 @@
 import React from 'react';
-import { Github, Linkedin, Mail, Heart } from 'lucide-react';
+import { personalInfo, socialLinks } from '../config/portfolio';
+import { Github, Linkedin, Mail } from 'lucide-react';
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
-
-    const socialLinks = [
-        { icon: Github, href: 'https://github.com', label: 'GitHub' },
-        { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-        { icon: Mail, href: 'mailto:contact@example.com', label: 'Email' },
-    ];
-
     return (
-        <footer className="bg-gray-900 border-t border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                    {/* Social Links */}
-                    <div className="flex space-x-6">
-                        {socialLinks.map((social) => {
-                            const Icon = social.icon;
-                            return (
-                                <a
-                                    key={social.label}
-                                    href={social.href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-gray-400 hover:text-primary transition-colors duration-300"
-                                    aria-label={social.label}
-                                >
-                                    <Icon size={20} />
-                                </a>
-                            );
-                        })}
-                    </div>
+        <footer className="py-12 bg-white border-t border-gray-100">
+            <div className="section-container flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="flex flex-col items-center md:items-start">
+                    <span className="text-sm font-bold text-gray-900 tracking-tight mb-2">
+                        {personalInfo.name}
+                    </span>
+                    <p className="text-xs text-gray-400 font-medium">
+                        Software Engineer & Fullstack Developer
+                    </p>
+                </div>
 
-                    {/* Copyright */}
-                    <div className="text-gray-400 text-sm flex items-center space-x-2">
-                        <span>© {currentYear} Portfolio. Made with</span>
-                        <Heart size={16} className="text-red-500 fill-current" />
-                        <span>by Developer</span>
-                    </div>
+                <div className="flex items-center gap-8">
+                    <a href={socialLinks.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors">
+                        <Github size={18} />
+                    </a>
+                    <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors">
+                        <Linkedin size={18} />
+                    </a>
+                    <a href={`mailto:${personalInfo.email}`} className="text-gray-400 hover:text-blue-600 transition-colors">
+                        <Mail size={18} />
+                    </a>
+                </div>
+
+                <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    © {new Date().getFullYear()} — Built with Code & Precision
                 </div>
             </div>
         </footer>

@@ -4,10 +4,9 @@ import { ArrowUp } from 'lucide-react';
 const ScrollToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
 
-    // Show button when page is scrolled down
     useEffect(() => {
         const toggleVisibility = () => {
-            if (window.pageYOffset > 300) {
+            if (window.pageYOffset > 500) {
                 setIsVisible(true);
             } else {
                 setIsVisible(false);
@@ -15,10 +14,7 @@ const ScrollToTop = () => {
         };
 
         window.addEventListener('scroll', toggleVisibility);
-
-        return () => {
-            window.removeEventListener('scroll', toggleVisibility);
-        };
+        return () => window.removeEventListener('scroll', toggleVisibility);
     }, []);
 
     const scrollToTop = () => {
@@ -33,10 +29,10 @@ const ScrollToTop = () => {
             {isVisible && (
                 <button
                     onClick={scrollToTop}
-                    className="fixed bottom-8 right-8 z-50 p-3 bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:scale-110"
+                    className="fixed bottom-10 right-10 z-[60] w-12 h-12 flex items-center justify-center bg-gray-900 hover:bg-blue-600 text-white rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95"
                     aria-label="Scroll to top"
                 >
-                    <ArrowUp size={24} />
+                    <ArrowUp size={20} />
                 </button>
             )}
         </>

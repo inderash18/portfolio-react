@@ -1,53 +1,64 @@
 import React from 'react';
-import { ArrowRight, Download } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { personalInfo } from '../config/portfolio';
 
 const Home = () => {
     return (
-        <section id="home" className="min-h-screen flex items-center justify-center pt-16">
-            <div className="section-container text-center">
-                {/* Greeting */}
-                <div className="mb-6 animate-fade-in">
-                    <span className="text-primary text-lg font-semibold">Hello, I'm</span>
-                </div>
+        <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden">
+            <div className="section-container relative z-10 text-center max-w-5xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 glass-container rounded-full mb-10"
+                >
+                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-zinc-400">System Identity: Deployment Successful</span>
+                </motion.div>
 
-                {/* Name */}
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-slide-up">
-                    <span className="text-gradient">{personalInfo.name}</span>
-                </h1>
+                <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 1 }}
+                    className="text-hero text-gradient mb-10"
+                >
+                    Crafting <br /> Seamless <br /> Realities.
+                </motion.h1>
 
-                {/* Role */}
-                <h2 className="text-2xl md:text-4xl text-gray-300 font-semibold mb-6">
-                    {personalInfo.role}
-                </h2>
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.6, duration: 1 }}
+                    className="text-zinc-400 text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed mb-16 font-light"
+                >
+                    I'm <span className="text-white font-semibold">{personalInfo.name}</span>.
+                    Specializing in high-performance digital architecture and invisible design patterns.
+                </motion.p>
 
-                {/* Tagline */}
-                <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-                    {personalInfo.tagline}
-                </p>
-
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="#projects" className="btn-primary flex items-center space-x-2">
-                        <span>View Projects</span>
-                        <ArrowRight size={20} />
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="flex flex-col sm:flex-row gap-6 justify-center"
+                >
+                    <a href="#projects" className="btn-glass px-10 py-5 group">
+                        Explore Nexus
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                     </a>
-                    <a href="#contact" className="btn-secondary flex items-center space-x-2">
-                        <span>Contact Me</span>
+                    <a href="#about" className="px-10 py-5 font-bold hover:text-zinc-400 transition-colors">
+                        The Story
                     </a>
-                    <button className="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white font-semibold rounded-lg transition-all duration-300 flex items-center space-x-2">
-                        <Download size={20} />
-                        <span>Download CV</span>
-                    </button>
-                </div>
-
-                {/* Scroll Indicator */}
-                <div className="mt-20 animate-bounce">
-                    <div className="w-6 h-10 border-2 border-gray-600 rounded-full mx-auto flex justify-center">
-                        <div className="w-1 h-3 bg-primary rounded-full mt-2"></div>
-                    </div>
-                </div>
+                </motion.div>
             </div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+                animate={{ y: [0, 15, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 text-zinc-600 opacity-50"
+            >
+                <ChevronDown size={32} strokeWidth={1} />
+            </motion.div>
         </section>
     );
 };
