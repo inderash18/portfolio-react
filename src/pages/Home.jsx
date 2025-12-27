@@ -5,9 +5,35 @@ import { intro, projects, experience, contact } from '../data/portfolio';
 import { ArrowRight, Github, Linkedin, Download, Code, Database, Terminal, Cpu, Play } from 'lucide-react';
 import AuroraHero from '../components/AuroraHero';
 import ProjectCard from '../components/ProjectCard';
+import CountUp from '../components/CountUp';
+import RollingCounter from '../components/RollingCounter';
 import CosmicGlobe from '../components/CosmicGlobe';
 
 const Home = () => {
+    const [views, setViews] = React.useState(0);
+    const [hours, setHours] = React.useState(0);
+
+    React.useEffect(() => {
+        // Simulate data fetching/calculation
+        const storedViews = localStorage.getItem('portfolio_views');
+        const initialViews = storedViews ? parseInt(storedViews) + 1 : 14205;
+        localStorage.setItem('portfolio_views', initialViews.toString());
+
+        setViews(initialViews);
+        setHours(2850); // Example static hours
+    }, []);
+
+    const getPlaces = (num) => {
+        const str = num.toString();
+        const places = [];
+        let multiplier = 1;
+        for (let i = 0; i < str.length; i++) {
+            places.unshift(multiplier);
+            multiplier *= 10;
+        }
+        return places;
+    };
+
     return (
         <div className="w-full relative">
             <AuroraHero />
@@ -72,6 +98,29 @@ const Home = () => {
                         >
                             <Play size={16} fill="white" /> See how it works
                         </button>
+                    </motion.div>
+
+                    {/* STATS COUNTUP SECTION */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-4xl mx-auto border-t border-white/10 pt-8"
+                    >
+                        {[
+                            { label: "Years Experience", value: 3, suffix: "+" },
+                            { label: "Projects Completed", value: 12, suffix: "+" },
+                            { label: "Code Quality", value: 100, suffix: "%" },
+                            { label: "Commitment", value: 24, suffix: "/7" }
+                        ].map((stat, index) => (
+                            <div key={index} className="text-center group hover:bg-white/5  p-4 rounded-xl transition-colors duration-300">
+                                <h3 className="text-4xl font-bold text-white flex justify-center items-center mb-1">
+                                    <CountUp to={stat.value} duration={2.5} separator="," />
+                                    <span className="text-purple-400">{stat.suffix}</span>
+                                </h3>
+                                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider group-hover:text-gray-300 transition-colors">{stat.label}</p>
+                            </div>
+                        ))}
                     </motion.div>
                 </div>
 
@@ -176,6 +225,47 @@ const Home = () => {
                     <Link to="/contact" className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-full hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] transition-all text-lg">
                         Get Started <ArrowRight size={20} />
                     </Link>
+                </div>
+            </section>
+
+            {/* LIVE STATS SECTION */}
+            <section className="py-16 border-t border-white/5 bg-black/20 backdrop-blur-sm relative z-10">
+                <div className="container mx-auto px-6">
+                    <div className="flex flex-wrap justify-center gap-12 md:gap-24 items-center">
+                        <div className="text-center group">
+                            <div className="mb-4 h-16 flex items-center justify-center overflow-hidden">
+                                {hours > 0 && (
+                                    <RollingCounter
+                                        value={hours}
+                                        fontSize={40}
+                                        gap={2}
+                                        textColor="#a855f7"
+                                        places={getPlaces(hours)}
+                                        gradientFrom="#020205"
+                                    />
+                                )}
+                            </div>
+                            <p className="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] group-hover:text-white transition-colors">Hours of Code</p>
+                        </div>
+
+                        <div className="hidden md:block w-px h-16 bg-gradient-to-b from-transparent via-white/10 to-transparent"></div>
+
+                        <div className="text-center group">
+                            <div className="mb-4 h-16 flex items-center justify-center overflow-hidden">
+                                {views > 0 && (
+                                    <RollingCounter
+                                        value={views}
+                                        fontSize={40}
+                                        gap={2}
+                                        textColor="#3b82f6"
+                                        places={getPlaces(views)}
+                                        gradientFrom="#020205"
+                                    />
+                                )}
+                            </div>
+                            <p className="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] group-hover:text-white transition-colors">Total Visits</p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>

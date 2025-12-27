@@ -2,6 +2,7 @@ import React from 'react';
 import { Github, Linkedin, Mail, Code, Terminal } from 'lucide-react';
 import { social } from '../data/portfolio';
 
+
 const Footer = () => {
     const iconMap = {
         Github: Github,
