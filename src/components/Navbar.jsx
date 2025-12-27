@@ -1,127 +1,109 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [activeSection, setActiveSection] = useState('home');
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            setScrolled(window.scrollY > 20);
         };
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveSection(entry.target.id);
-                    }
-                });
-            },
-            { threshold: 0.5 }
-        );
-
-        document.querySelectorAll('section').forEach((section) => {
-            observer.observe(section);
-        });
-
         window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            observer.disconnect();
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const links = [
-        { name: 'Home', href: '#home' },
-        { name: 'Skills', href: '#skills' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Experience', href: '#experience' },
-        { name: 'Contact', href: '#contact' },
+        { name: 'What we do', path: '/projects' },
+        { name: 'Our approach', path: '/about' },
+        { name: 'About us', path: '/experience' },
     ];
 
-    const handleClick = (e, href) => {
-        e.preventDefault();
-        const element = document.querySelector(href);
-        if (element) {
-            const offsetTop = element.offsetTop;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
-            setIsOpen(false);
-        }
-    };
+    const isHome = location.pathname === '/';
 
     return (
-        <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-4 bg-black/80 backdrop-blur-md border-b border-white/5' : 'py-6 bg-transparent'
-                }`}
-        >
-            <div className="container mx-auto px-6 flex justify-between items-center">
-                <motion.a
-                    href="#home"
-                    onClick={(e) => handleClick(e, '#home')}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="text-2xl font-bold tracking-tighter cursor-pointer"
-                >
-                    INDERASH<span className="text-cyan-400">.</span>
-                </motion.a>
+        <>
+            <motion.nav
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.5 }}
+                className={`fixed top-4 left-0 right-0 z-50 flex justify-center px-4`}
+            >
+                <div className={`
+                    flex items-center justify-between px-6 py-3 rounded-full transition-all duration-300
+                    ${scrolled || isOpen ? 'bg-white text-black shadow-lg w-full max-w-5xl' : 'bg-white/90 backdrop-blur-md text-black w-full max-w-5xl border border-white/20'}
+                `}>
+                    {/* Logo */}
+                    <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-tight z-50">
+                        <span className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center text-white text-xs">I.M</span>
+                        <span>Eterna<span className="text-purple-600">Cloud</span></span>
+                    </Link>
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex items-center gap-8">
-                    {links.map((link, i) => (
-                        <motion.a
-                            key={link.name}
-                            href={link.href}
-                            onClick={(e) => handleClick(e, link.href)}
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1 }}
-                            className={`text-sm font-medium transition-colors uppercase tracking-widest relative group ${activeSection === link.name.toLowerCase() ? 'text-cyan-400' : 'text-gray-400 hover:text-white'
-                                }`}
+                    {/* Desktop Links */}
+                    <div className="hidden md:flex items-center gap-8">
+                        {links.map((link) => (
+                            <Link
+                                key={link.name}
+                                to={link.path}
+                                className="text-sm font-medium hover:text-purple-600 transition-colors"
+                            >
+                                {link.name}
+                            </Link>
+                        ))}
+                    </div>
+
+                    {/* CTA Button */}
+                    <div className="hidden md:block">
+                        <Link
+                            to="/contact"
+                            className="px-6 py-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
                         >
-                            {link.name}
-                            <span className={`absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all duration-300 group-hover:w-full ${activeSection === link.name.toLowerCase() ? 'w-full' : ''}`}></span>
-                        </motion.a>
-                    ))}
+                            Contact
+                        </Link>
+                    </div>
+
+                    {/* Mobile Toggle */}
+                    <button className="md:hidden z-50 p-1" onClick={() => setIsOpen(!isOpen)}>
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
                 </div>
+            </motion.nav>
 
-                {/* Mobile Toggle */}
-                <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? <X /> : <Menu />}
-                </button>
-            </div>
-
-            {/* Mobile Menu */}
+            {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-black border-b border-white/10 overflow-hidden"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden"
                     >
-                        <div className="flex flex-col p-6 gap-6">
+                        <div className="flex flex-col gap-6 items-center">
                             {links.map((link) => (
-                                <a
+                                <Link
                                     key={link.name}
-                                    href={link.href}
-                                    onClick={(e) => handleClick(e, link.href)}
-                                    className={`text-2xl font-bold ${activeSection === link.name.toLowerCase() ? 'text-cyan-400' : 'text-gray-400'
-                                        }`}
+                                    to={link.path}
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-2xl font-bold text-gray-900"
                                 >
                                     {link.name}
-                                </a>
+                                </Link>
                             ))}
+                            <Link
+                                to="/contact"
+                                onClick={() => setIsOpen(false)}
+                                className="mt-4 px-8 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold"
+                            >
+                                Contact Us
+                            </Link>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </>
     );
 };
 

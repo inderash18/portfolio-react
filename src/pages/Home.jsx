@@ -1,109 +1,93 @@
 import React, { Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { intro, projects, skills, experience, contact } from '../data/portfolio';
-import { ArrowRight, Github, Linkedin, Download, ExternalLink, Code, Database, Terminal, Cpu } from 'lucide-react';
-import NeuralBrain from '../components/NeuralBrain';
+import { intro, projects, experience, contact } from '../data/portfolio';
+import { ArrowRight, Github, Linkedin, Download, Code, Database, Terminal, Cpu, Play } from 'lucide-react';
+import AuroraHero from '../components/AuroraHero';
 import ProjectCard from '../components/ProjectCard';
+import CosmicGlobe from '../components/CosmicGlobe';
 
 const Home = () => {
     return (
-        <div className="w-full">
-            {/* HERO SECTION */}
-            <section className="min-h-[calc(100vh-64px)] flex items-center relative overflow-hidden mb-20">
-                <div className="container-max grid lg:grid-cols-2 gap-12 items-center relative z-10 w-full py-20 lg:py-0">
+        <div className="w-full relative">
+            <AuroraHero />
 
-                    {/* Left Content */}
+            {/* HERO SECTION */}
+            <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-20">
+
+                {/* Central Glow Orb */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none z-0" />
+
+                <div className="container-max relative z-10 w-full text-center">
+
+                    {/* Badge */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        className="text-center lg:text-left order-2 lg:order-1 relative z-20"
+                        transition={{ duration: 0.6 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-purple-300 text-xs font-semibold tracking-widest uppercase mb-8 cursor-pointer hover:bg-white/10 transition-colors"
                     >
-                        {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold tracking-wide uppercase mb-6">
-                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                            {intro.role}
-                        </div>
-
-                        {/* Heading */}
-                        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
-                            Transforming Ideas into <br className="hidden lg:block" />
-                            <span className="text-gradient">Intelligent Code</span>.
-                        </h1>
-
-                        {/* Subtext */}
-                        <p className="text-lg sm:text-xl text-text-muted mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                            {intro.subtext}
-                        </p>
-
-                        {/* CTAs */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
-                            <Link
-                                to="/projects"
-                                className="w-full sm:w-auto px-8 py-3.5 bg-primary text-white font-semibold rounded-lg hover:bg-primary-hover transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
-                            >
-                                View Projects <ArrowRight size={18} />
-                            </Link>
-
-                            <a
-                                href="#"
-                                className="w-full sm:w-auto px-8 py-3.5 bg-white/5 text-white font-semibold rounded-lg hover:bg-white/10 border border-white/10 transition-all flex items-center justify-center gap-2"
-                            >
-                                Download Resume <Download size={18} />
-                            </a>
-                        </div>
-
-                        {/* Social Proof */}
-                        <div className="flex items-center justify-center lg:justify-start gap-6 pt-8 border-t border-white/5">
-                            <span className="text-sm text-text-muted font-medium uppercase tracking-wider">Trusted on</span>
-                            <div className="flex gap-4 text-text-muted">
-                                {contact.social.map((social) => {
-                                    /* Icon Mapping */
-                                    const Icon = {
-                                        Github: Github,
-                                        Linkedin: Linkedin,
-                                        Code: Code,
-                                        Terminal: Terminal
-                                    }[social.icon] || Github;
-
-                                    return (
-                                        <a
-                                            key={social.name}
-                                            href={social.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="hover:text-cyan-400 transition-colors cursor-pointer"
-                                            title={social.name}
-                                        >
-                                            <Icon size={22} />
-                                        </a>
-                                    );
-                                })}
-                            </div>
-                        </div>
+                        <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                        Data Center Product Management Partner
                     </motion.div>
 
-                    {/* Right Content - Brain Animation */}
-                    <div className="order-1 lg:order-2 h-[400px] lg:h-[600px] w-full relative">
-                        <Suspense fallback={<div className="absolute inset-0 bg-transparent" />}>
-                            <div className="absolute inset-0 scale-125 lg:scale-110">
-                                <NeuralBrain />
-                            </div>
-                        </Suspense>
-                    </div>
+                    {/* Heading */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                        className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60"
+                    >
+                        Perfecting every detail <br className="hidden md:block" />
+                        for <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">intelligent code</span>
+                    </motion.h1>
+
+                    {/* Subtext */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-lg sm:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
+                    >
+                        Non-stop continuous service drives execution across products and vendors.
+                        Built to free up and elevate Design, Engineering & Construction teams.
+                    </motion.p>
+
+                    {/* CTAs */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                    >
+                        <Link
+                            to="/projects"
+                            className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all flex items-center gap-2"
+                        >
+                            View Work <ArrowRight size={18} />
+                        </Link>
+
+                        <button
+                            className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-full hover:bg-white/5 transition-all flex items-center gap-2"
+                        >
+                            <Play size={16} fill="white" /> See how it works
+                        </button>
+                    </motion.div>
                 </div>
+
+                {/* Bottom Fade */}
+                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#020205] to-transparent pointer-events-none" />
             </section>
 
-            {/* SKILLS STRIP SECTION */}
-            <section className="py-20 border-y border-white/5 bg-white/[0.02]">
+            {/* SKILLS STRIP SECTION - Eterna Style */}
+            <section className="py-24 border-t border-white/5 relative z-10">
                 <div className="container-max">
-                    <div className="text-center mb-12">
-                        <h2 className="text-sm font-semibold text-primary tracking-widest uppercase mb-2">Technical Proficiency</h2>
-                        <h3 className="text-3xl font-bold">Powering Next-Gen Applications</h3>
+                    <div className="text-center mb-16">
+                        <h2 className="text-sm font-semibold text-purple-400 tracking-widest uppercase mb-3">High-Touch Precision</h2>
+                        <h3 className="text-3xl sm:text-4xl font-bold">A collaborative and intuitive <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">partner you can count on</span></h3>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {[
                             { icon: Code, label: "Frontend", desc: "React, Tailwind, HTML5" },
                             { icon: Terminal, label: "Backend", desc: "Node, Express, Mongo" },
@@ -116,13 +100,13 @@ const Home = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 transition-all group"
+                                className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-purple-500/30 transition-all group backdrop-blur-sm"
                             >
-                                <div className="w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                                <div className="w-12 h-12 mb-6 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform border border-white/5">
                                     <s.icon size={24} />
                                 </div>
-                                <h4 className="text-lg font-bold mb-1">{s.label}</h4>
-                                <p className="text-sm text-text-muted">{s.desc}</p>
+                                <h4 className="text-xl font-bold mb-2 text-gray-100">{s.label}</h4>
+                                <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -130,17 +114,15 @@ const Home = () => {
             </section>
 
             {/* FEATURED PROJECTS SECTION */}
-            <section className="py-24">
+            <section className="py-24 relative z-10">
                 <div className="container-max">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                         <div>
-                            <h2 className="text-4xl font-bold mb-4">Featured Work</h2>
-                            <p className="text-text-muted max-w-xl">
-                                A glimpse into my portfolio of web applications, IoT systems, and automation tools.
-                            </p>
+                            <h2 className="text-sm font-semibold text-blue-400 tracking-widest uppercase mb-3">What we build</h2>
+                            <h2 className="text-4xl font-bold text-white">Featured Projects</h2>
                         </div>
-                        <Link to="/projects" className="flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all">
-                            View All Projects <ArrowRight size={20} />
+                        <Link to="/projects" className="flex items-center gap-2 text-white/60 hover:text-white transition-colors">
+                            View All <ArrowRight size={20} />
                         </Link>
                     </div>
 
@@ -152,51 +134,47 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* EXPERIENCE SNIPPET */}
-            <section className="py-24 relative overflow-hidden">
-                <div className="absolute inset-0 bg-primary/5 -skew-y-3 transform origin-top-left -z-10"></div>
-                <div className="container-max grid lg:grid-cols-2 gap-16 items-center">
+            {/* EXPERIENCE SNIPPET - Eterna Style */}
+            <section className="py-24 relative overflow-hidden z-10">
+                {/* Decoration */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+
+                <div className="container-max grid lg:grid-cols-2 gap-20 items-center">
                     <div>
-                        <h2 className="text-4xl font-bold mb-6">Professional Journey</h2>
-                        <div className="space-y-8">
+                        <h2 className="text-purple-400 text-sm font-bold tracking-widest uppercase mb-4">Our History</h2>
+                        <h3 className="text-4xl font-bold mb-8">Trusted by Fortune 10 <br /> hyperscalers</h3>
+
+                        <div className="space-y-12">
                             {experience.slice(0, 2).map((exp) => (
-                                <div key={exp.id} className="relative pl-8 border-l-2 border-primary/30">
-                                    <span className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-bg-dark border-2 border-primary"></span>
-                                    <h3 className="text-xl font-bold text-white">{exp.role}</h3>
-                                    <p className="text-primary text-sm mb-2">{exp.org} | {exp.date}</p>
-                                    <p className="text-text-muted text-sm line-clamp-2">{exp.desc[0]}</p>
+                                <div key={exp.id} className="relative pl-8 border-l border-white/10">
+                                    <span className="absolute -left-[5px] top-0 w-[9px] h-[9px] rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
+                                    <h4 className="text-xl font-bold text-white mb-1">{exp.role}</h4>
+                                    <p className="text-blue-400 text-sm mb-3">{exp.org} | {exp.date}</p>
+                                    <p className="text-gray-500 text-sm leading-relaxed">{exp.desc[0]}</p>
                                 </div>
                             ))}
                         </div>
-                        <div className="mt-10">
-                            <Link to="/experience" className="px-6 py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors inline-block">
-                                View Full Timeline
-                            </Link>
-                        </div>
                     </div>
 
-                    {/* Visual Decoration for Experience */}
-                    <div className="relative h-full min-h-[300px] hidden lg:block">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl border border-white/5 backdrop-blur-sm p-8 flex items-center justify-center">
-                            <div className="text-center">
-                                <p className="text-6xl font-bold text-white mb-2">3+</p>
-                                <p className="text-sm uppercase tracking-widest text-text-muted">Years Experience</p>
-                            </div>
-                        </div>
+                    {/* Cosmic Globe Visual */}
+                    <div className="relative h-full min-h-[400px] flex items-center justify-center p-8 bg-white/[0.02] rounded-3xl border border-white/5">
+                        <div className="absolute inset-0 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
+                        <CosmicGlobe />
                     </div>
                 </div>
             </section>
 
             {/* CTA SECTION */}
-            <section className="py-24 text-center">
-                <div className="container-max max-w-3xl">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to start a project?</h2>
-                    <p className="text-xl text-text-muted mb-10">
-                        I'm currently available for freelance work and open to full-time opportunities.
-                        Let's build something amazing together.
+            <section className="py-32 text-center relative overflow-hidden z-10">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-900/20 pointer-events-none" />
+
+                <div className="container-max max-w-3xl relative z-10">
+                    <h2 className="text-5xl font-bold mb-8">You steadily gain <br /> dependable momentum</h2>
+                    <p className="text-xl text-gray-400 mb-10 leading-relaxed">
+                        Progress shouldn't feel like pressure. We accelerate outcomes and simplify workstreams by removing friction.
                     </p>
-                    <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold rounded-lg hover:bg-primary-hover shadow-lg hover:shadow-primary/25 transition-all text-lg">
-                        Let's Talk <ArrowRight size={20} />
+                    <Link to="/contact" className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-full hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] transition-all text-lg">
+                        Get Started <ArrowRight size={20} />
                     </Link>
                 </div>
             </section>
@@ -205,3 +183,4 @@ const Home = () => {
 };
 
 export default Home;
+

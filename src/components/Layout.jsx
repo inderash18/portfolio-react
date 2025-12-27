@@ -92,7 +92,7 @@ const Layout = ({ children }) => {
             <footer className="border-t border-white/5 bg-bg-card/30 mt-20">
                 <div className="container-max py-12 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="text-text-muted text-sm text-center md:text-left">
-                        <p>© {new Date().getFullYear()} Inderash M. Built with React & Tailwind.</p>
+                        <p>© {new Date().getFullYear()} Inderash Built with React & Tailwind.</p>
                     </div>
 
                     <div className="flex items-center gap-6">
@@ -102,14 +102,14 @@ const Layout = ({ children }) => {
                                 href={link.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-text-muted hover:text-primary transition-colors"
+                                className="text-text-muted hover:text-yellow-500 transition-colors"
                                 aria-label={link.name}
                             >
                                 {link.name === 'GitHub' && <Github size={20} />}
                                 {link.name === 'LinkedIn' && <Linkedin size={20} />}
                             </a>
                         ))}
-                        <a href={`mailto:${contact.email}`} className="text-text-muted hover:text-primary transition-colors">
+                        <a href={`mailto:${contact.email}`} className="text-text-muted hover:text-yellow-500 transition-colors">
                             <Mail size={20} />
                         </a>
                     </div>
