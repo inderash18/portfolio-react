@@ -1,0 +1,109 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Send, CheckCircle, AlertCircle } from 'lucide-react';
+
+const ContactForm = () => {
+    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+    const [status, setStatus] = useState('idle'); // idle, submitting, success, error
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setStatus('submitting');
+
+        // Simulate API call
+        setTimeout(() => {
+            // Basic validation simulation
+            if (formData.name && formData.email && formData.message) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+            } else {
+                setStatus('error');
+            }
+
+            // Reset status after 3 seconds
+            setTimeout(() => setStatus('idle'), 3000);
+        }, 1500);
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="glass-card p-8 rounded-2xl w-full max-w-lg mx-auto">
+            <div className="mb-6">
+                <label htmlFor="name" className="block text-sm font-mono text-gray-400 mb-2">NAME</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                    placeholder="John Doe"
+                    required
+                />
+            </div>
+
+            <div className="mb-6">
+                <label htmlFor="email" className="block text-sm font-mono text-gray-400 mb-2">EMAIL</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                    placeholder="john@example.com"
+                    required
+                />
+            </div>
+
+            <div className="mb-8">
+                <label htmlFor="message" className="block text-sm font-mono text-gray-400 mb-2">MESSAGE</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows="4"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+                    placeholder="Let's build something amazing..."
+                    required
+                />
+            </div>
+
+            <button
+                type="submit"
+                disabled={status === 'submitting'}
+                className={`w-full py-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all duration-300 ${status === 'success'
+                        ? 'bg-green-500/20 text-green-400 border border-green-500'
+                        : status === 'error'
+                            ? 'bg-red-500/20 text-red-400 border border-red-500'
+                            : 'bg-cyan-500 hover:bg-cyan-400 text-black'
+                    }`}
+            >
+                {status === 'idle' && (
+                    <>
+                        SEND MESSAGE <Send size={18} />
+                    </>
+                )}
+                {status === 'submitting' && (
+                    <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin"></div>
+                )}
+                {status === 'success' && (
+                    <>
+                        SENT SUCCESSFULLY <CheckCircle size={18} />
+                    </>
+                )}
+                {status === 'error' && (
+                    <>
+                        ERROR SENDING <AlertCircle size={18} />
+                    </>
+                )}
+            </button>
+        </form>
+    );
+};
+
+export default ContactForm;

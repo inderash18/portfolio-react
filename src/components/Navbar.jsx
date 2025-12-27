@@ -1,36 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { personalInfo } from '../config/portfolio';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [activeSection, setActiveSection] = useState('home');
 
     useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 50);
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActiveSection(entry.target.id);
+                    }
+                });
+            },
+            { threshold: 0.5 }
+        );
+
+        document.querySelectorAll('section').forEach((section) => {
+            observer.observe(section);
+        });
+
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            observer.disconnect();
+        };
     }, []);
 
-    const navLinks = [
-        { name: 'NEXUS', href: '#projects' },
-        { name: 'IDENTITY', href: '#about' },
-        { name: 'SIGNAL', href: '#contact' },
+    const links = [
+        { name: 'Home', href: '#home' },
+        { name: 'Skills', href: '#skills' },
+        { name: 'Projects', href: '#projects' },
+        { name: 'Experience', href: '#experience' },
+        { name: 'Contact', href: '#contact' },
     ];
 
-    const scrollToSection = (e, href) => {
+    const handleClick = (e, href) => {
         e.preventDefault();
         const element = document.querySelector(href);
         if (element) {
-            const offset = 100;
-            const bodyRect = document.body.getBoundingClientRect().top;
-            const elementRect = element.getBoundingClientRect().top;
-            const elementPosition = elementRect - bodyRect;
-            const offsetPosition = elementPosition - offset;
-
+            const offsetTop = element.offsetTop;
             window.scrollTo({
-                top: offsetPosition,
+                top: offsetTop,
                 behavior: 'smooth'
             });
             setIsOpen(false);
@@ -38,79 +56,63 @@ const Navbar = () => {
     };
 
     return (
-        <motion.nav
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 px-6 ${scrolled ? 'pt-4' : 'pt-10'
+        <nav
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-4 bg-black/80 backdrop-blur-md border-b border-white/5' : 'py-6 bg-transparent'
                 }`}
         >
-            <div className="max-w-7xl mx-auto flex justify-between items-center group">
-                {/* Brand Logo - Professional Ghost Style */}
-                <a
+            <div className="container mx-auto px-6 flex justify-between items-center">
+                <motion.a
                     href="#home"
-                    onClick={(e) => scrollToSection(e, '#home')}
-                    className="flex flex-col items-start gap-1 p-2 transition-all cursor-pointer"
+                    onClick={(e) => handleClick(e, '#home')}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="text-2xl font-bold tracking-tighter cursor-pointer"
                 >
-                    <span className="text-xl font-black text-white tracking-widest uppercase italic">
-                        {personalInfo.name.split('.')[0]}<span className="text-accent">OS</span>
-                    </span>
-                    <div className="w-full h-[1px] bg-white/10 group-hover:bg-accent transition-all duration-500"></div>
-                </a>
+                    INDERASH<span className="text-cyan-400">.</span>
+                </motion.a>
 
-                {/* Central Pill - Transparent Glass */}
-                <div className={`hidden md:flex items-center glass-container px-2 py-1.5 rounded-full border-white/5 transition-all duration-700 ${scrolled ? 'bg-white/5 shadow-2xl' : 'bg-transparent'
-                    }`}>
-                    {navLinks.map((link) => (
-                        <a
+                {/* Desktop Menu */}
+                <div className="hidden md:flex items-center gap-8">
+                    {links.map((link, i) => (
+                        <motion.a
                             key={link.name}
                             href={link.href}
-                            onClick={(e) => scrollToSection(e, link.href)}
-                            className="px-6 py-2 text-[10px] font-black text-zinc-500 hover:text-white transition-all tracking-[0.3em] uppercase"
+                            onClick={(e) => handleClick(e, link.href)}
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                            className={`text-sm font-medium transition-colors uppercase tracking-widest relative group ${activeSection === link.name.toLowerCase() ? 'text-cyan-400' : 'text-gray-400 hover:text-white'
+                                }`}
                         >
                             {link.name}
-                        </a>
+                            <span className={`absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all duration-300 group-hover:w-full ${activeSection === link.name.toLowerCase() ? 'w-full' : ''}`}></span>
+                        </motion.a>
                     ))}
                 </div>
 
-                {/* Right Call to Action */}
-                <div className="flex items-center gap-4">
-                    <a
-                        href="#contact"
-                        onClick={(e) => scrollToSection(e, '#contact')}
-                        className="btn-glass !py-2.5 !px-6 group overflow-hidden"
-                    >
-                        <span className="flex items-center text-[10px] font-black tracking-widest uppercase">
-                            Initialize
-                            <ArrowUpRight size={12} className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        </span>
-                    </a>
-
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="md:hidden p-3 glass-container rounded-2xl text-white border-white/5"
-                    >
-                        {isOpen ? <X size={20} /> : <Menu size={20} />}
-                    </button>
-                </div>
+                {/* Mobile Toggle */}
+                <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
+                    {isOpen ? <X /> : <Menu />}
+                </button>
             </div>
 
-            {/* Mobile Nav Overlay */}
+            {/* Mobile Menu */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        className="fixed inset-0 bg-black/95 backdrop-blur-3xl z-[101] md:hidden flex flex-col items-center justify-center p-10"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="md:hidden bg-black border-b border-white/10 overflow-hidden"
                     >
-                        <button onClick={() => setIsOpen(false)} className="absolute top-10 right-10 text-white"><X size={32} /></button>
-                        <div className="space-y-12 text-center">
-                            {navLinks.map((link) => (
+                        <div className="flex flex-col p-6 gap-6">
+                            {links.map((link) => (
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    onClick={(e) => scrollToSection(e, link.href)}
-                                    className="block text-4xl font-black text-white hover:text-accent uppercase tracking-tighter"
+                                    onClick={(e) => handleClick(e, link.href)}
+                                    className={`text-2xl font-bold ${activeSection === link.name.toLowerCase() ? 'text-cyan-400' : 'text-gray-400'
+                                        }`}
                                 >
                                     {link.name}
                                 </a>
@@ -119,7 +121,7 @@ const Navbar = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.nav>
+        </nav>
     );
 };
 
