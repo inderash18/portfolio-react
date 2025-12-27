@@ -1,4 +1,5 @@
 import React, { useRef, useMemo } from 'react';
+
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as random from 'maath/random';
@@ -49,6 +50,8 @@ const AuroraHero = () => {
                     <Stars />
                 </Canvas>
             </div>
+
+
 
             {/* Glass Vignette */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#020205_90%)] pointer-events-none" />

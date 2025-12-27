@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import Threads from './Threads';
 
 const Background = () => {
     const blobRefs = useRef([]);
@@ -23,7 +24,7 @@ const Background = () => {
     }, []);
 
     return (
-        <div className="fixed inset-0 -z-30 overflow-hidden pointer-events-none">
+        <div className="fixed inset-0 -z-30 overflow-hidden">
             {/* Dark Base */}
             <div className="absolute inset-0 bg-[#0a0a0a]" />
 
@@ -46,6 +47,16 @@ const Background = () => {
                 ref={el => blobRefs.current[2] = el}
                 className="absolute -bottom-[10%] left-[20%] w-[600px] h-[600px] bg-cyan-900/20 rounded-full blur-[120px] opacity-40 delay-2000"
             />
+
+            {/* Threads Effect */}
+            <div className="absolute inset-0 opacity-40">
+                <Threads
+                    amplitude={1}
+                    distance={0}
+                    enableMouseInteraction={true}
+                    color={[1, 1, 1]}
+                />
+            </div>
         </div>
     );
 };
