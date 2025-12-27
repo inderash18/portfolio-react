@@ -36,7 +36,7 @@ const Footer = () => {
                     })}
                 </div>
 
-                <p className="text-sm text-gray-600 font-mono">
+                <p className="text-center text-sm text-gray-600 font-mono mt-8">
                     © {new Date().getFullYear()} Inderash. Built with React & Tailwind.
                 </p>
             </div>

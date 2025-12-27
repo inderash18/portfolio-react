@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
             <header className="fixed top-0 left-0 right-0 z-50 bg-bg-dark/80 backdrop-blur-md border-b border-white/5">
                 <nav className="container-max h-16 flex items-center justify-between">
                     <NavLink to="/" className="text-xl font-bold tracking-tight text-white hover:text-primary transition-colors">
-                        Inderash<span className="text-primary">.dev</span>
+                        INDERASH<span className="text-primary"></span>
                     </NavLink>
 
                     {/* Desktop Nav */}

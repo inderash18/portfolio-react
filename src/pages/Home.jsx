@@ -54,8 +54,8 @@ const Home = () => {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-purple-300 text-xs font-semibold tracking-widest uppercase mb-8 cursor-pointer hover:bg-white/10 transition-colors"
                     >
                         <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-                        Data Center Product Management Partner
-                    </motion.div>
+                      Developer (MERN Stack)
+                             </motion.div>
 
                     {/* Heading */}
                     <motion.h1

@@ -76,7 +76,7 @@ export const experience = [
         id: 1,
         role: "B.Sc. CSDA Student",
         org: "KPR College of Arts Science and Research",
-        date: "2022 - Present",
+        date: "2024 - Present",
         desc: [
             "Specializing in Computer Science with Data Analytics.",
             "Maintained a CGPA of 7.1 while actively participating in tech clubs.",
@@ -87,7 +87,7 @@ export const experience = [
         id: 2,
         role: "PRO Member",
         org: "Rotaract Club",
-        date: "2023 - Present",
+        date: "2024 - Present",
         desc: [
             "Led public relations initiatives and community outreach programs.",
             "Organized large-scale events promoting social awareness and student leadership.",
@@ -98,7 +98,7 @@ export const experience = [
         id: 3,
         role: "Higher Secondary Education",
         org: "Literacy Mission Matric Hr Sec School",
-        date: "Completed 2022",
+        date: "Completed 2024",
         desc: ["Achieved 77% in final board examinations with a focus on Mathematics and Computer Science."],
     },
 ];
