@@ -47,8 +47,7 @@ const Home = () => {
                             </Link>
 
                             <a
-                                href="/resume.pdf"
-                                download="Inderash_Resume.pdf"
+                                href="#"
                                 className="w-full sm:w-auto px-8 py-3.5 bg-white/5 text-white font-semibold rounded-lg hover:bg-white/10 border border-white/10 transition-all flex items-center justify-center gap-2"
                             >
                                 Download Resume <Download size={18} />
