@@ -3,12 +3,18 @@ from flask_cors import CORS
 from pymongo import MongoClient
 from datetime import datetime
 
+import os
+# from dotenv import load_dotenv # Uncomment if using .env file locally
+# load_dotenv()
+
 app = Flask(__name__)
 CORS(app)
 
 # MongoDB Connection
 try:
-    client = MongoClient('mongodb://127.0.0.1:27017/')
+    # Use environment variable for MongoDB URI, default to local if not set
+    mongo_uri = os.environ.get('MONGO_URI', 'mongodb://127.0.0.1:27017/') 
+    client = MongoClient(mongo_uri)
     db = client['portfolio_contact']
     collection = db['contacts']
     print("Connected to MongoDB Successfully")
