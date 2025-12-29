@@ -54,8 +54,8 @@ const Home = () => {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-purple-300 text-xs font-semibold tracking-widest uppercase mb-8 cursor-pointer hover:bg-white/10 transition-colors"
                     >
                         <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-                      Developer (MERN Stack)
-                             </motion.div>
+                        Developer (MERN Stack)
+                    </motion.div>
 
                     {/* Heading */}
                     <motion.h1
@@ -75,8 +75,7 @@ const Home = () => {
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="text-lg sm:text-xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed"
                     >
-                        Non-stop continuous service drives execution across products and vendors.
-                        Built to free up and elevate Design, Engineering & Construction teams.
+                        {intro.subtext}
                     </motion.p>
 
                     {/* CTAs */}

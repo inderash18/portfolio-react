@@ -10,23 +10,38 @@ const ContactForm = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus('submitting');
 
-        // Simulate API call
-        setTimeout(() => {
-            // Basic validation simulation
-            if (formData.name && formData.email && formData.message) {
+        try {
+            // Using 127.0.0.1 to avoid localhost resolution issues
+            const response = await fetch('http://127.0.0.1:5000/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
                 setStatus('success');
                 setFormData({ name: '', email: '', message: '' });
             } else {
+                console.error('Server error:', data);
                 setStatus('error');
+                alert(`Error: ${data.message || 'Failed to send message'}`);
             }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setStatus('error');
+            alert('Connection Error: Is the backend server running? Check console for details.');
+        }
 
-            // Reset status after 3 seconds
-            setTimeout(() => setStatus('idle'), 3000);
-        }, 1500);
+        // Reset status after 3 seconds
+        setTimeout(() => setStatus('idle'), 3000);
     };
 
     return (
@@ -77,10 +92,10 @@ const ContactForm = () => {
                 type="submit"
                 disabled={status === 'submitting'}
                 className={`w-full py-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-all duration-300 ${status === 'success'
-                        ? 'bg-green-500/20 text-green-400 border border-green-500'
-                        : status === 'error'
-                            ? 'bg-red-500/20 text-red-400 border border-red-500'
-                            : 'bg-cyan-500 hover:bg-cyan-400 text-black'
+                    ? 'bg-green-500/20 text-green-400 border border-green-500'
+                    : status === 'error'
+                        ? 'bg-red-500/20 text-red-400 border border-red-500'
+                        : 'bg-cyan-500 hover:bg-cyan-400 text-black'
                     }`}
             >
                 {status === 'idle' && (

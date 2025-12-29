@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
 import Experience from './pages/Experience';
+import LifestylePage from './pages/LifestylePage';
 import Contact from './pages/Contact';
 
 // Scroll to top on route change
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
                     <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
                     <Route path="/experience" element={<PageWrapper><Experience /></PageWrapper>} />
+                    <Route path="/lifestyle" element={<PageWrapper><LifestylePage /></PageWrapper>} />
                     <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
                 </Routes>
             </Layout>

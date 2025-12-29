@@ -4,7 +4,7 @@ export const intro = {
     location: "Coimbatore, India",
     tagline: "Building scalable, user-centric web solutions.",
     subtext: "I help visionary teams build high-performance web applications with clean code and intuitive design.",
-    bio: "I'm a Full-Stack Developer based in Coimbatore, passionate about creating seamless digital experiences. With a background in Computer Science and Data Analytics, I bridge the gap between complex backend logic and elegant frontend interfaces.",
+    bio: "I am a student full-stack developer with a strong focus on building scalable, real-world web applications enhanced with AI capabilities. I work confidently across both frontend and backend, developing clean, interactive user interfaces and reliable server-side systems. Alongside technology, I have a strong passion for cricket. I am deeply interested in playing cricket, teaching cricket and running to students, and spending time on the ground developing discipline, fitness, and teamwork. I enjoy being on the field and watching cricket, as it inspires strategy, focus, and consistency—qualities I also apply to software development. My interests reflect a balanced approach to growth, combining technical innovation with physical activity, leadership, and continuous self-improvement.",
 };
 
 export const skills = {
@@ -131,3 +131,35 @@ export const contact = {
         { name: "HackerRank", url: "#", icon: "Terminal" },
     ],
 };
+
+export const interests = [
+    {
+        title: "Cricket",
+        desc: "Playing, teaching, and strategizing on the field. It inspires my focus and consistency.",
+        icon: "Activity"
+    },
+    {
+        title: "Fitness & Running",
+        desc: "Maintaining physical discipline through daily running and ground workouts.",
+        icon: "Zap"
+    },
+    {
+        title: "Mentorship",
+        desc: "Teaching cricket to students and spending time developing their teamwork.",
+        icon: "Users"
+    },
+    {
+        title: "AI & Innovation",
+        desc: "Exploring how AI can enhance real-world web applications.",
+        icon: "Cpu"
+    },
+];
+
+export const routine = [
+    { time: "05:30 AM", activity: "Morning Run & Fitness", icon: "Sunrise" },
+    { time: "06:30 AM", activity: "Cricket Practice", icon: "Activity" },
+    { time: "09:00 AM", activity: "College / Academic Focus", icon: "BookOpen" },
+    { time: "04:00 PM", activity: "Coaching Students", icon: "Users" },
+    { time: "06:30 PM", activity: "Full-Stack Development", icon: "Code" },
+    { time: "10:30 PM", activity: "Tech Research & Reading", icon: "Moon" },
+];

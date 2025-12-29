@@ -15,12 +15,6 @@ const About = () => {
                     <h1 className="text-4xl md:text-5xl font-bold mb-8">About Me</h1>
                     <div className="prose prose-invert prose-lg text-text-muted">
                         <p className="mb-6">{intro.bio}</p>
-                        <p>
-                            I believe in the power of technology to solve real-world problems. Whether it's optimizing a backend query or refining a UI animation, I approach every task with a problem-solving mindset and an eye for detail.
-                        </p>
-                        <p>
-                            When I'm not coding, you can find me on the Kho-Kho field or exploring the latest developments in AI and Automation.
-                        </p>
                     </div>
                 </div>
 
@@ -72,7 +66,7 @@ const About = () => {
             </div>
 
             {/* Achievements Section */}
-            <div>
+            <div className="mb-24">
                 <h2 className="text-3xl font-bold mb-12 flex items-center gap-4">
                     <span className="w-8 h-1 bg-secondary rounded-full"></span>
                     Milestones

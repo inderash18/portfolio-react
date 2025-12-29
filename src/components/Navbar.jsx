@@ -20,6 +20,7 @@ const Navbar = () => {
         { name: 'What we do', path: '/projects' },
         { name: 'Our approach', path: '/about' },
         { name: 'About us', path: '/experience' },
+        { name: 'Life & Interests', path: '/lifestyle' },
     ];
 
     const isHome = location.pathname === '/';
