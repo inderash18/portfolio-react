@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from pymongo import MongoClient
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 from datetime import datetime
+import certifi
 
 import os
 from dotenv import load_dotenv
@@ -14,10 +16,20 @@ CORS(app)
 try:
     # Use environment variable for MongoDB URI, default to local if not set
     mongo_uri = os.environ.get('MONGO_URI', 'mongodb://127.0.0.1:27017/') 
-    client = MongoClient(mongo_uri)
+    
+    # Create a new client and connect to the server
+    # distinct connection logic for Atlas vs Local
+    if "mongodb+srv" in mongo_uri:
+        client = MongoClient(mongo_uri, server_api=ServerApi('1'), tlsCAFile=certifi.where(), tlsAllowInvalidCertificates=True)
+    else:
+        client = MongoClient(mongo_uri)
+    
+    # Send a ping to confirm a successful connection
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+    
     db = client['portfolio_contact']
     collection = db['contacts']
-    print("Connected to MongoDB Successfully")
 except Exception as e:
     print(f"MongoDB connection error: {e}")
 
