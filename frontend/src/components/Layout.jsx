@@ -13,6 +13,7 @@ const Layout = ({ children }) => {
         { name: 'Projects', path: '/projects' },
         { name: 'About', path: '/about' },
         { name: 'Experience', path: '/experience' },
+        { name: 'Dashboard', path: '/dashboard' },
         { name: 'Contact', path: '/contact' },
     ];
 
