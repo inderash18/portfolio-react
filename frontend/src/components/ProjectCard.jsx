@@ -55,7 +55,7 @@ const ProjectCard = ({ project }) => {
                         {project.tech.map((tag) => (
                             <span
                                 key={tag}
-                                className="px-3 py-1 bg-white/5 border border-white/5 rounded-full text-xs font-medium text-cyan-200/80 tracking-wide"
+                                className="px-3 py-1 bg-white/5 border border-white/5 rounded-full text-xs font-medium text-primary tracking-wide"
                             >
                                 {tag}
                             </span>

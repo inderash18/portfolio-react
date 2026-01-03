@@ -54,7 +54,7 @@ const ContactForm = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                     placeholder="John Doe"
                     required
                 />
@@ -68,7 +68,7 @@ const ContactForm = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"
                     placeholder="john@example.com"
                     required
                 />
@@ -82,7 +82,7 @@ const ContactForm = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows="4"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors resize-none"
                     placeholder="Let's build something amazing..."
                     required
                 />
@@ -95,7 +95,7 @@ const ContactForm = () => {
                     ? 'bg-green-500/20 text-green-400 border border-green-500'
                     : status === 'error'
                         ? 'bg-red-500/20 text-red-400 border border-red-500'
-                        : 'bg-cyan-500 hover:bg-cyan-400 text-black'
+                        : 'bg-primary hover:opacity-90 text-white shadow-lg shadow-primary/20'
                     }`}
             >
                 {status === 'idle' && (

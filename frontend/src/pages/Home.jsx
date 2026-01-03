@@ -8,10 +8,12 @@ import ProjectCard from '../components/ProjectCard';
 import CountUp from '../components/CountUp';
 import RollingCounter from '../components/RollingCounter';
 import CosmicGlobe from '../components/CosmicGlobe';
+import { useTheme } from '../components/ThemeContext';
 
 const Home = () => {
     const [views, setViews] = React.useState(0);
     const [hours, setHours] = React.useState(0);
+    const { currentTheme } = useTheme();
 
     React.useEffect(() => {
         // Simulate data fetching/calculation
@@ -42,7 +44,7 @@ const Home = () => {
             <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-20">
 
                 {/* Central Glow Orb */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none z-0" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
                 <div className="container-max relative z-10 w-full text-center">
 
@@ -51,9 +53,9 @@ const Home = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-purple-300 text-xs font-semibold tracking-widest uppercase mb-8 cursor-pointer hover:bg-white/10 transition-colors"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-semibold tracking-widest uppercase mb-8 cursor-pointer hover:bg-white/10 transition-colors"
                     >
-                        <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                         Developer (MERN Stack)
                     </motion.div>
 
@@ -65,7 +67,7 @@ const Home = () => {
                         className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.1] text-transparent bg-clip-text bg-gradient-to-b from-white to-white/60"
                     >
                         Perfecting every detail <br className="hidden md:block" />
-                        for <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">intelligent code</span>
+                        for <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-glow">intelligent code</span>
                     </motion.h1>
 
                     {/* Subtext */}
@@ -115,7 +117,7 @@ const Home = () => {
                             <div key={index} className="text-center group hover:bg-white/5  p-4 rounded-xl transition-colors duration-300">
                                 <h3 className="text-4xl font-bold text-white flex justify-center items-center mb-1">
                                     <CountUp to={stat.value} duration={2.5} separator="," />
-                                    <span className="text-purple-400">{stat.suffix}</span>
+                                    <span className="text-primary">{stat.suffix}</span>
                                 </h3>
                                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider group-hover:text-gray-300 transition-colors">{stat.label}</p>
                             </div>
@@ -131,8 +133,8 @@ const Home = () => {
             <section className="py-24 border-t border-white/5 relative z-10">
                 <div className="container-max">
                     <div className="text-center mb-16">
-                        <h2 className="text-sm font-semibold text-purple-400 tracking-widest uppercase mb-3">High-Touch Precision</h2>
-                        <h3 className="text-3xl sm:text-4xl font-bold">A collaborative and intuitive <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">partner you can count on</span></h3>
+                        <h2 className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">High-Touch Precision</h2>
+                        <h3 className="text-3xl sm:text-4xl font-bold">A collaborative and intuitive <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-glow">partner you can count on</span></h3>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -148,9 +150,9 @@ const Home = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-purple-500/30 transition-all group backdrop-blur-sm"
+                                className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-all group backdrop-blur-sm"
                             >
-                                <div className="w-12 h-12 mb-6 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform border border-white/5">
+                                <div className="w-12 h-12 mb-6 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform border border-white/5">
                                     <s.icon size={24} />
                                 </div>
                                 <h4 className="text-xl font-bold mb-2 text-gray-100">{s.label}</h4>
@@ -166,7 +168,7 @@ const Home = () => {
                 <div className="container-max">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                         <div>
-                            <h2 className="text-sm font-semibold text-blue-400 tracking-widest uppercase mb-3">What we build</h2>
+                            <h2 className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">What we build</h2>
                             <h2 className="text-4xl font-bold text-white">Featured Projects</h2>
                         </div>
                         <Link to="/projects" className="flex items-center gap-2 text-white/60 hover:text-white transition-colors">
@@ -185,19 +187,19 @@ const Home = () => {
             {/* EXPERIENCE SNIPPET - Eterna Style */}
             <section className="py-24 relative overflow-hidden z-10">
                 {/* Decoration */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
                 <div className="container-max grid lg:grid-cols-2 gap-20 items-center">
                     <div>
-                        <h2 className="text-purple-400 text-sm font-bold tracking-widest uppercase mb-4">Our History</h2>
+                        <h2 className="text-primary text-sm font-bold tracking-widest uppercase mb-4">Our History</h2>
                         <h3 className="text-4xl font-bold mb-8">Trusted by Fortune 10 <br /> hyperscalers</h3>
 
                         <div className="space-y-12">
                             {experience.slice(0, 2).map((exp) => (
                                 <div key={exp.id} className="relative pl-8 border-l border-white/10">
-                                    <span className="absolute -left-[5px] top-0 w-[9px] h-[9px] rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
+                                    <span className="absolute -left-[5px] top-0 w-[9px] h-[9px] rounded-full bg-primary shadow-[0_0_10px_var(--primary-glow)]"></span>
                                     <h4 className="text-xl font-bold text-white mb-1">{exp.role}</h4>
-                                    <p className="text-blue-400 text-sm mb-3">{exp.org} | {exp.date}</p>
+                                    <p className="text-primary text-sm mb-3">{exp.org} | {exp.date}</p>
                                     <p className="text-gray-500 text-sm leading-relaxed">{exp.desc[0]}</p>
                                 </div>
                             ))}
@@ -206,7 +208,7 @@ const Home = () => {
 
                     {/* Cosmic Globe Visual */}
                     <div className="relative h-full min-h-[400px] flex items-center justify-center p-8 bg-white/[0.02] rounded-3xl border border-white/5">
-                        <div className="absolute inset-0 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none" />
+                        <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
                         <CosmicGlobe />
                     </div>
                 </div>
@@ -221,7 +223,7 @@ const Home = () => {
                     <p className="text-xl text-gray-400 mb-10 leading-relaxed">
                         Progress shouldn't feel like pressure. We accelerate outcomes and simplify workstreams by removing friction.
                     </p>
-                    <Link to="/contact" className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-full hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] transition-all text-lg">
+                    <Link to="/contact" className="inline-flex items-center gap-2 px-10 py-5 bg-primary text-white font-bold rounded-full hover:shadow-[0_0_20px_var(--primary-glow)] transition-all text-lg">
                         Get Started <ArrowRight size={20} />
                     </Link>
                 </div>
@@ -238,9 +240,9 @@ const Home = () => {
                                         value={hours}
                                         fontSize={40}
                                         gap={2}
-                                        textColor="#a855f7"
+                                        textColor={currentTheme.primary}
                                         places={getPlaces(hours)}
-                                        gradientFrom="#020205"
+                                        gradientFrom="#0a0a0a"
                                     />
                                 )}
                             </div>
@@ -256,9 +258,9 @@ const Home = () => {
                                         value={views}
                                         fontSize={40}
                                         gap={2}
-                                        textColor="#3b82f6"
+                                        textColor={currentTheme.primary}
                                         places={getPlaces(views)}
-                                        gradientFrom="#020205"
+                                        gradientFrom="#0a0a0a"
                                     />
                                 )}
                             </div>

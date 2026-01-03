@@ -45,8 +45,9 @@ const Background = () => {
             />
             <div
                 ref={el => blobRefs.current[2] = el}
-                className="absolute -bottom-[10%] left-[20%] w-[600px] h-[600px] bg-cyan-900/20 rounded-full blur-[120px] opacity-40 delay-2000"
+                className="absolute -bottom-[10%] left-[20%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] opacity-40 delay-2000"
             />
+
 
             {/* Threads Effect */}
             <div className="absolute inset-0 opacity-40">

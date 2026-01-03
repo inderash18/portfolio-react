@@ -6,24 +6,25 @@ import {
 import { motion } from 'framer-motion';
 import { Activity, Code, Cpu, Github, Globe, Linkedin, Mail, Server, Target, Terminal, Users, Zap, BookOpen } from 'lucide-react';
 import { intro, skills, projects, experience, contact, achievements } from '../data/portfolio';
+import { useTheme } from '../components/ThemeContext';
 
-// --- Theme Constants ---
-const COLORS = {
-  primary: '#8b5cf6', // Violet
-  secondary: '#d946ef', // Fuchsia
-  accent: '#06b6d4', // Cyan
-  success: '#10b981', // Emerald
-  warning: '#f59e0b', // Amber
-  danger: '#ef4444', // Red
-  dark: '#020205',
-  grid: '#334155',
-  text: '#e2e8f0',
-  textMuted: '#94a3b8'
+// --- Theme Constants (Default values for helper components) ---
+const DEFAULT_COLORS = {
+  primary: '#ff3b3b',
+  secondary: '#ffffff',
+  accent: 'rgba(255, 59, 59, 0.4)',
+  success: '#10b981',
+  warning: '#f59e0b',
+  danger: '#ef4444',
+  dark: '#0a0a0a',
+  grid: '#262626',
+  text: '#ffffff',
+  textMuted: '#888888'
 };
 
-const GLOW_STYLES = {
-  boxShadow: `0 0 15px ${COLORS.primary}15, inset 0 0 5px ${COLORS.primary}10`,
-  border: `1px solid ${COLORS.primary}30`
+const GLOW_STYLES_BASE = {
+  boxShadow: (color) => `0 0 15px ${color}15, inset 0 0 5px ${color}10`,
+  border: (color) => `1px solid ${color}30`
 };
 
 // --- Data Transformation ---
@@ -53,18 +54,21 @@ const careerGrowthData = [
   { year: '2025 (Exp)', projects: 12, skills: 25, impact: 95 },
 ];
 
-const pieColors = [COLORS.primary, COLORS.accent, COLORS.secondary, COLORS.success, COLORS.warning];
+// Pie Colors (will be handled dynamically inside Dashboard)
 
 // --- Components ---
 
-const Panel = ({ title, children, className = '', glow = false }) => (
+const Panel = ({ title, children, className = '', glow = false, primaryColor }) => (
   <div
     className={`bg-[#0a0a0c]/90 backdrop-blur-xl rounded-xl p-5 border border-white/5 flex flex-col ${className}`}
-    style={glow ? GLOW_STYLES : {}}
+    style={glow ? {
+      boxShadow: `0 0 15px ${primaryColor}15, inset 0 0 5px ${primaryColor}10`,
+      border: `1px solid ${primaryColor}30`
+    } : {}}
   >
     <div className="flex justify-between items-center mb-4">
       <h3 className="text-xs font-bold tracking-[0.2em] text-gray-500 uppercase flex items-center gap-2">
-        {title && <span className="w-1.5 h-1.5 bg-violet-500 rounded-sm"></span>}
+        {title && <span className="w-1.5 h-1.5 bg-primary rounded-sm"></span>}
         {title}
       </h3>
       <div className="flex gap-1.5">
@@ -126,8 +130,25 @@ const CustomTooltip = ({ active, payload, label }) => {
 // --- Main Dashboard ---
 
 const Dashboard = () => {
+  const { currentTheme } = useTheme();
+
+  const COLORS = {
+    primary: currentTheme.primary,
+    secondary: '#ffffff',
+    accent: currentTheme.glow,
+    success: '#10b981',
+    warning: '#f59e0b',
+    danger: '#ef4444',
+    dark: '#0a0a0a',
+    grid: '#262626',
+    text: '#ffffff',
+    textMuted: '#888888'
+  };
+
+  const pieColors = [COLORS.primary, COLORS.accent, COLORS.secondary, COLORS.success, COLORS.warning];
+
   return (
-    <div className="min-h-screen bg-[#020205] text-white p-4 md:p-8 font-sans selection:bg-violet-500/30">
+    <div className="min-h-screen bg-[#0a0a0a] text-white p-4 md:p-8 font-sans selection:bg-primary/30">
 
       {/* Header Section */}
       <motion.div
@@ -137,7 +158,7 @@ const Dashboard = () => {
       >
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <span className="px-2 py-0.5 bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-bold tracking-widest rounded uppercase">
+            <span className="px-2 py-0.5 bg-primary-dim border border-primary/20 text-primary text-[10px] font-bold tracking-widest rounded uppercase">
               Developer Profile v2.1
             </span>
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -154,7 +175,7 @@ const Dashboard = () => {
           <a href={`mailto:${contact.email}`} className="p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors">
             <Mail size={20} className="text-gray-400" />
           </a>
-          <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-600 flex items-center justify-center border border-white/20 shadow-xl shadow-violet-500/20 rotate-3 hover:rotate-0 transition-transform duration-500">
+          <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center border border-white/20 shadow-xl shadow-primary/20 rotate-3 hover:rotate-0 transition-transform duration-500">
             <span className="text-xl font-bold">IM</span>
           </div>
         </div>
@@ -173,7 +194,7 @@ const Dashboard = () => {
 
         {/* Left Col: Skill Radar & Category */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          <Panel title="Skill Proficiency Index" className="h-[400px]" glow>
+          <Panel title="Skill Proficiency Index" className="h-[400px]" glow primaryColor={COLORS.primary}>
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={skillRadarData}>
                 <PolarGrid stroke="#ffffff10" />
@@ -192,7 +213,7 @@ const Dashboard = () => {
             </ResponsiveContainer>
           </Panel>
 
-          <Panel title="Project Categorization" className="h-[300px]">
+          <Panel title="Project Categorization" className="h-[300px]" primaryColor={COLORS.primary}>
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -218,7 +239,7 @@ const Dashboard = () => {
 
         {/* Center/Right Col: Career Trajectory */}
         <div className="lg:col-span-8 flex flex-col gap-6">
-          <Panel title="Career Trajectory & Technical Impact" className="flex-1 min-h-[450px]" glow>
+          <Panel title="Career Trajectory & Technical Impact" className="flex-1 min-h-[450px]" glow primaryColor={COLORS.primary}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={careerGrowthData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                 <defs>
@@ -254,7 +275,7 @@ const Dashboard = () => {
             <div className="mt-4 p-4 bg-white/[0.02] border border-white/5 rounded-xl">
               <div className="flex justify-between items-center text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-3">
                 <span>Tech Stack Health</span>
-                <span className="text-violet-400">98.2% Accurate</span>
+                <span className="text-primary">98.2% Accurate</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {skills.frontend.concat(skills.backend).slice(0, 6).map((s, i) => (
@@ -269,17 +290,17 @@ const Dashboard = () => {
 
           {/* Lower Row: Experience & Achievements */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Panel title="Recent Achievements" className="h-[250px]">
+            <Panel title="Recent Achievements" className="h-[250px]" primaryColor={COLORS.primary}>
               <div className="space-y-4 overflow-y-auto pr-2 custom-scrollbar h-full">
                 {achievements.map((ach, i) => (
-                  <div key={i} className="group relative pl-4 border-l-2 border-violet-500/30 hover:border-violet-500 transition-colors">
+                  <div key={i} className="group relative pl-4 border-l-2 border-primary/30 hover:border-primary transition-colors">
                     <h4 className="text-xs font-bold text-gray-300">{ach.title}</h4>
                     <p className="text-[10px] text-gray-500 mt-1">{ach.desc}</p>
                   </div>
                 ))}
               </div>
             </Panel>
-            <Panel title="System Uptime (Productivity)" className="h-[250px]">
+            <Panel title="System Uptime (Productivity)" className="h-[250px]" primaryColor={COLORS.primary}>
               <div className="flex flex-col justify-center h-full gap-4">
                 {[
                   { label: 'Coding', val: 85, col: COLORS.primary },
@@ -312,7 +333,7 @@ const Dashboard = () => {
       <footer className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-600 font-mono gap-6">
         <div className="flex gap-8">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-violet-600"></div>
+            <div className="w-2 h-2 rounded-full bg-primary"></div>
             <span>DATA SOURCE: LOCAL_CORE_V1</span>
           </div>
           <div className="flex items-center gap-2">

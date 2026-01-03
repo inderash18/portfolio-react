@@ -23,7 +23,7 @@ const Experience = () => {
                             className="relative pl-8 md:pl-12"
                         >
                             {/* Timeline Dot */}
-                            <span className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-bg-dark border-2 border-primary shadow-[0_0_10px_rgba(6,182,212,0.5)]"></span>
+                            <span className="absolute -left-[9px] top-6 w-4 h-4 rounded-full bg-bg-dark border-2 border-primary shadow-[0_0_10px_var(--primary-glow)]"></span>
 
                             <div className="glass-card p-8 rounded-xl">
                                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
