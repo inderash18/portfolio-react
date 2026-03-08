@@ -19,12 +19,12 @@ const ScrollToTop = () => {
     return null;
 };
 
-// Wrapper for individual page animations (Entrance only)
+// Wrapper for individual page animations (Cinematic Entrance)
 const PageWrapper = ({ children }) => (
     <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="w-full"
     >
         {children}

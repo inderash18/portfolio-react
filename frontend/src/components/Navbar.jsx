@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Palette } from 'lucide-react';
+import { Menu, X, Palette, Home, Briefcase, User, Gauge, Heart, Send } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
 
@@ -20,11 +20,11 @@ const Navbar = () => {
     }, []);
 
     const links = [
-        { name: 'What we do', path: '/projects' },
-        { name: 'Our approach', path: '/about' },
-        { name: 'About us', path: '/experience' },
-        { name: 'Dashboard', path: '/dashboard' },
-        { name: 'Life & Interests', path: '/lifestyle' },
+        { name: 'Home', path: '/', icon: Home },
+        { name: 'Work', path: '/projects', icon: Briefcase },
+        { name: 'Approach', path: '/about', icon: User },
+        { name: 'Resume', path: '/experience', icon: Gauge },
+        { name: 'Interests', path: '/lifestyle', icon: Heart },
     ];
 
     const isHome = location.pathname === '/';
@@ -32,83 +32,101 @@ const Navbar = () => {
     return (
         <>
             <motion.nav
-                initial={{ y: -100 }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.5 }}
-                className={`fixed top-6 left-0 right-0 z-50 flex justify-center px-6`}
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                className="fixed top-6 left-0 right-0 z-50 flex justify-center px-8 pointer-events-none"
             >
-                <div
-                    className={`
-                        flex items-center justify-between px-8 py-4 transition-all duration-500 ease-in-out
-                        rounded-[2.5rem] border backdrop-blur-xl
-                        ${scrolled || isOpen
-                            ? 'bg-black/40 border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] w-full max-w-6xl py-3'
-                            : 'bg-white/5 border-white/20 shadow-none w-full max-w-5xl'}
-                    `}
-                    style={{
-                        boxShadow: scrolled ? `0 10px 30px -10px ${currentTheme.glow}` : 'none'
-                    }}
-                >
-                    <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-tighter z-50 group">
-                        <motion.div
-                            whileHover={{ rotate: 180 }}
-                            className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-white text-sm shadow-lg shadow-primary/20"
-                        >
-                            I.M
-                        </motion.div>
-                        <span className="text-white">Eterna<span className="text-primary group-hover:glow-sm transition-all">Cloud</span></span>
+                <div className="flex items-center gap-3 p-1.5 bg-[#0a0a0a]/80 backdrop-blur-3xl rounded-full border border-white/5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] ring-1 ring-white/10 pointer-events-auto relative">
+                    {/* Brand Identifier */}
+                    <Link to="/" className="flex items-center gap-3 pl-4 pr-3 py-2 mr-2 border-r border-white/10 group">
+                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                            <span className="text-[10px] font-black text-white tracking-widest">IM</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-black text-white leading-tight tracking-[0.2em] uppercase">Inderash</span>
+                            <span className="text-[8px] font-bold text-white/30 tracking-widest uppercase">Portfolio</span>
+                        </div>
                     </Link>
 
-                    {/* Desktop Links */}
-                    <div className="hidden md:flex items-center gap-10">
-                        {links.map((link) => (
-                            <Link
-                                key={link.name}
-                                to={link.path}
-                                className={`text-[13px] uppercase tracking-widest font-semibold transition-all duration-300 hover:text-primary ${location.pathname === link.path ? 'text-primary' : 'text-white/70'}`}
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                    {/* Navigation Items */}
+                    <div className="flex items-center gap-1.5">
+                        {links.map((link) => {
+                            const isActive = location.pathname === link.path;
+                            const Icon = link.icon;
+
+                            return (
+                                <Link
+                                    key={link.name}
+                                    to={link.path}
+                                    className="relative flex items-center gap-2.5 px-4 py-2.5 rounded-full transition-all duration-500 group overflow-hidden"
+                                >
+                                    {isActive && (
+                                        <motion.div
+                                            layoutId="nav-pill"
+                                            className="absolute inset-0 bg-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] z-0"
+                                            transition={{ type: "spring", bounce: 0.1, duration: 0.6 }}
+                                        />
+                                    )}
+
+                                    <Icon
+                                        size={15}
+                                        className={`relative z-10 transition-all duration-500 ${isActive ? 'text-black' : 'text-white/40 group-hover:text-white/70'}`}
+                                    />
+
+                                    {/* Link Text - Always visible but styled differently for professional clarity */}
+                                    <span className={`relative z-10 text-[11px] font-bold tracking-tight uppercase transition-all duration-500
+                                        ${isActive ? 'text-black w-auto opacity-100' : 'text-white/40 group-hover:text-white/70 w-0 group-hover:w-auto opacity-0 group-hover:opacity-100'}`}
+                                    >
+                                        {link.name}
+                                    </span>
+                                </Link>
+                            );
+                        })}
                     </div>
 
-                    {/* Right Actions */}
-                    <div className="hidden md:flex items-center gap-6">
-                        {/* Theme Switcher */}
+                    <div className="w-[1px] h-6 bg-white/10 mx-2" />
+
+                    {/* Actions Area */}
+                    <div className="flex items-center gap-2 pr-1.5">
                         <div className="relative">
                             <button
                                 onClick={() => setIsThemeOpen(!isThemeOpen)}
-                                className={`w-10 h-10 rounded-full transition-all flex items-center justify-center border backdrop-blur-md ${isThemeOpen ? 'bg-primary text-white border-primary shadow-lg shadow-primary/30' : 'bg-white/5 text-white/70 hover:text-white border-white/10 hover:border-white/30'}`}
-                                title="Change Color Palette"
+                                className={`w-9 h-9 rounded-full transition-all flex items-center justify-center border ${isThemeOpen ? 'bg-primary text-white border-primary shadow-lg shadow-primary/30' : 'bg-white/5 text-white/40 hover:text-white border-white/5'}`}
+                                title="Signature Palette"
                             >
-                                <Palette size={18} />
+                                <Palette size={16} />
                             </button>
 
                             <AnimatePresence>
                                 {isThemeOpen && (
                                     <motion.div
-                                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                                        className="absolute top-full right-0 mt-4 p-4 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl min-w-[220px] z-50 grid grid-cols-1 gap-2"
+                                        initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                                        animate={{ opacity: 1, y: 15, scale: 1 }}
+                                        exit={{ opacity: 0, y: 30, scale: 0.9 }}
+                                        className="absolute top-full right-0 p-4 bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 rounded-3xl shadow-2xl min-w-[240px] z-50 ring-1 ring-white/10"
                                     >
-                                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest px-2 mb-2">Signature Themes</p>
-                                        {themes.map((t) => (
-                                            <button
-                                                key={t.name}
-                                                onClick={() => {
-                                                    setCurrentTheme(t);
-                                                    setIsThemeOpen(false);
-                                                }}
-                                                className={`flex items-center justify-between p-3 rounded-2xl transition-all hover:bg-white/5 group border ${currentTheme.name === t.name ? 'border-primary/50 bg-primary/10' : 'border-transparent'}`}
-                                            >
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-5 h-5 rounded-full shadow-lg border-2 border-white/20" style={{ backgroundColor: t.primary }}></div>
-                                                    <span className={`text-[11px] font-semibold tracking-wide ${currentTheme.name === t.name ? 'text-white' : 'text-white/50 group-hover:text-white/80'}`}>{t.name}</span>
-                                                </div>
-                                                {currentTheme.name === t.name && <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>}
-                                            </button>
-                                        ))}
+                                        <div className="flex items-center justify-between px-2 mb-4">
+                                            <span className="text-[9px] font-black text-white/30 uppercase tracking-[0.3em]">Signature Themes</span>
+                                            <div className="w-1 h-1 rounded-full bg-primary animate-ping" />
+                                        </div>
+                                        <div className="grid grid-cols-1 gap-1.5">
+                                            {themes.map((t) => (
+                                                <button
+                                                    key={t.name}
+                                                    onClick={() => {
+                                                        setCurrentTheme(t);
+                                                        setIsThemeOpen(false);
+                                                    }}
+                                                    className={`flex items-center justify-between p-3 rounded-2xl transition-all border ${currentTheme.name === t.name ? 'border-primary/50 bg-primary/10' : 'border-transparent hover:bg-white/5'}`}
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-4 h-4 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.1)]" style={{ backgroundColor: t.primary }}></div>
+                                                        <span className={`text-[11px] font-bold ${currentTheme.name === t.name ? 'text-white' : 'text-white/40'}`}>{t.name}</span>
+                                                    </div>
+                                                    {currentTheme.name === t.name && <div className="w-1 h-1 rounded-full bg-primary shadow-[0_0_10px_var(--primary)]" />}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -116,19 +134,11 @@ const Navbar = () => {
 
                         <Link
                             to="/contact"
-                            className="px-8 py-3 rounded-full bg-primary text-white text-[13px] font-bold hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 uppercase tracking-wider"
+                            className="px-6 py-2.5 rounded-full bg-white text-black text-[11px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all shadow-lg active:scale-95"
                         >
-                            Contact
+                            Connect
                         </Link>
                     </div>
-
-                    {/* Mobile Toggle */}
-                    <button
-                        className="md:hidden z-50 w-10 h-10 rounded-full flex items-center justify-center bg-white/5 border border-white/10 text-white"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        {isOpen ? <X size={20} /> : <Menu size={20} />}
-                    </button>
                 </div>
             </motion.nav>
 
